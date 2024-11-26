@@ -6,7 +6,13 @@ require 'templates/navbar.php';
 <div class="mt-5 pt-4"> <!-- Menambahkan padding-top -->
     <div class="container mt-5">
         <p class="lead mb-4 text-center wow fadeIn" data-wow-duration="5s">
-            Hai, apa kabar? Siap untuk traveling atau mau jalan ke mana saja? Ayo kunjungi website kami, terjamin cepat untuk pemesanan tiketnya.
+            <!-- Content Placeholder -->
+        <div class="container mt-5 pt-5">
+            <h1 class="text-center">Selamat Datang di TiketPesawat</h1>
+            <p class="text-center">Temukan dan pesan tiket penerbangan dengan mudah!</p>
+        </div>
+
+        Hai, apa kabar? Siap untuk traveling atau mau jalan ke mana saja? Ayo kunjungi website kami, terjamin cepat untuk pemesanan tiketnya.
         </p>
 
         <!-- Teks tambahan untuk memberi informasi lebih -->
@@ -29,18 +35,11 @@ require 'templates/navbar.php';
         <div class="card-body">
             <h5 class="card-title">Traveling Murah</h5>
             <p class="card-text">Rencanakan perjalanan Anda dengan harga terbaik dan kenyamanan maksimal. Nikmati liburan dengan penawaran eksklusif kami.</p>
-            <a href="#" class="btn btn-primary">Pesan Sekarang</a>
+            <a href="pemesanan.php" class="btn btn-primary">Ayo Buruan Pesan</a>
         </div>
     </div>
-
-    <div class="card mb-5 shadow-lg rounded wow fadeInUp">
-        <img src="img/pexels-reto-burkler-640438-1443894.jpg" class="card-img-top" alt="Traveling Image">
-        <div class="card-body">
-            <h5 class="card-title">Traveling Murah</h5>
-            <p class="card-text">Rencanakan perjalanan Anda dengan harga terbaik dan kenyamanan maksimal. Nikmati liburan dengan penawaran eksklusif kami.</p>
-            <a href="#" class="btn btn-primary">Pesan Sekarang</a>
-        </div>
-    </div>
+ 
+    
 </div>
 
 <?php
@@ -212,7 +211,7 @@ require 'templates/footer.php';
     document.querySelectorAll('.card-img-top').forEach((img) => {
         img.style.opacity = 0;
         img.style.transition = 'opacity 1.5s ease';
-        window.addEventListener('scroll', function () {
+        window.addEventListener('scroll', function() {
             const rect = img.getBoundingClientRect();
             if (rect.top <= window.innerHeight && rect.bottom >= 0) {
                 img.style.opacity = 1;
@@ -221,7 +220,7 @@ require 'templates/footer.php';
     });
 
     // Menambahkan class 'fadeIn' untuk animasi pada elemen dengan class 'wow'
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const elements = document.querySelectorAll('.wow');
         elements.forEach((el) => {
             el.classList.add('fadeIn');

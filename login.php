@@ -1,15 +1,77 @@
 <?php
-require 'config/fungsi.php';
+// Inisialisasi pesan
+$loginMessage = '';
+$registerMessage = '';
+
+// Proses Login
+if (isset($_POST['login_email']) && isset($_POST['login_password'])) {
+    require 'config/fungsi.php'; // Pastikan koneksi database tersedia
+    $email = mysqli_real_escape_string($db, $_POST['login_email']);
+    $password = $_POST['login_password'];
+
+    $query = "SELECT * FROM pengguna WHERE email = '$email'";
+    $result = mysqli_query($db, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
+
+        if (password_verify($password, $user['kata_sandi'])) {
+            session_start();
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['nama'];
+
+            // Redirect ke index.php setelah login berhasil
+            header('Location: index.php');
+            exit; // Hentikan eksekusi setelah redirect
+        } else {
+            // Pesan jika kata sandi salah
+            $loginMessage = 'Kata sandi salah!';
+        }
+    } else {
+        // Pesan jika email tidak ditemukan
+        $loginMessage = 'Email tidak ditemukan!';
+    }
+}
+
+// Proses Register
+if (isset($_POST['register_nama']) && isset($_POST['register_email']) && isset($_POST['register_password'])) {
+    require 'config/fungsi.php'; // Pastikan koneksi database tersedia
+    $nama = mysqli_real_escape_string($db, $_POST['register_nama']);
+    $email = mysqli_real_escape_string($db, $_POST['register_email']);
+    $password = password_hash($_POST['register_password'], PASSWORD_DEFAULT);
+
+    // Periksa apakah email sudah terdaftar
+    $query = "SELECT * FROM pengguna WHERE email = '$email'";
+    $result = mysqli_query($db, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Pesan jika email sudah terdaftar
+        $registerMessage = 'Email sudah terdaftar!';
+    } else {
+        // Simpan pengguna baru
+        $query = "INSERT INTO pengguna (nama, email, kata_sandi) VALUES ('$nama', '$email', '$password')";
+        if (mysqli_query($db, $query)) {
+            // Pesan jika pendaftaran berhasil
+            $registerMessage = 'Pendaftaran berhasil! Silakan login.';
+        } else {
+            // Pesan jika terjadi kesalahan saat mendaftar
+            $registerMessage = 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.';
+        }
+    }
+}
+
+// Header dan koneksi database
 require 'templates/header.php';
 ?>
 
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/modal.css">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
     body {
         font-family: 'Poppins', sans-serif;
-        background: 
-            url('img/pexels-reto-burkler-640438-1443894.jpg') no-repeat center center/cover;
+        background: url('img/pexels-reto-burkler-640438-1443894.jpg') no-repeat center center/cover;
         height: 100vh;
         display: flex;
         align-items: center;
@@ -26,8 +88,8 @@ require 'templates/header.php';
 
     h2 {
         font-weight: 600;
-        color: #333;
-        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        color: #ffffff;
+        text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.2);
     }
 
     .form-control {
@@ -56,7 +118,7 @@ require 'templates/header.php';
     }
 
     p {
-        color: #555;
+        color: #ffffff;
         font-size: 14px;
     }
 
@@ -76,11 +138,11 @@ require 'templates/header.php';
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h2 class="text-center mb-4">
-                Selamat Datang di <span style="color: #efefef ;">Web Pemesanan Tiket Pesawat</span>
+                Selamat Datang di <span style="color: #efefef;">Web Pemesanan Tiket Pesawat</span>
             </h2>
             <div class="card">
                 <div class="card-body">
-                    <form action="process.php" method="POST">
+                    <form id="loginForm" method="POST">
                         <div class="mb-3">
                             <label for="loginEmail" class="form-label">Alamat Email</label>
                             <input type="email" class="form-control" id="loginEmail" name="login_email" placeholder="Masukkan email Anda" required>
@@ -93,9 +155,9 @@ require 'templates/header.php';
                     </form>
                 </div>
             </div>
+
             <p class="text-center mt-3">
-                Belum memiliki akun?
-                <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Daftar di sini</a>
+                Belum memiliki akun? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Daftar di sini</a>
             </p>
         </div>
     </div>
@@ -110,10 +172,10 @@ require 'templates/header.php';
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <div class="modal-body">
-                <form action="register_process.php" method="POST">
+                <form id="registerForm" method="POST">
                     <div class="mb-3">
                         <label for="registerName" class="form-label">Masukkan Nama</label>
-                        <input type="text" class="form-control" id="registerName" name="register_name" placeholder="Masukkan nama lengkap Anda" required>
+                        <input type="text" class="form-control" id="registerName" name="register_nama" placeholder="Masukkan nama lengkap Anda" required>
                     </div>
                     <div class="mb-3">
                         <label for="registerEmail" class="form-label">Masukkan Email</label>
@@ -130,84 +192,80 @@ require 'templates/header.php';
     </div>
 </div>
 
-<div class="name">
-    <div class="value">
-        <div class="name">  
-            <div class="a"> </div>
-        </div>
-    </div>
-</div>
-
-</div>
+<!-- SweetAlert2 Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    // Efek klik pada tombol
-    document.querySelectorAll('.btn-primary').forEach(button => {
-        button.addEventListener('click', (e) => {
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                button.style.transform = 'scale(1)';
-            }, 100);
+    $(document).ready(function() {
+        // Handle form submission with AJAX for login
+        $('#loginForm').submit(function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "config/fungsi.php", // File PHP yang menangani login
+                data: formData,
+                success: function(response) {
+                    if (response.status === "login_success") {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Login Information',
+                            text: response.message
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Login Failed',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Terjadi kesalahan. Silakan coba lagi.'
+                    });
+                }
+            });
         });
-    });
 
-    // Validasi form dengan umpan balik dinamis
-    document.getElementById('loginEmail').addEventListener('input', function() {
-        const emailInput = this;
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(emailInput.value)) {
-            emailInput.style.borderColor = 'red';
-        } else {
-            emailInput.style.borderColor = 'green';
-        }
-    });
+        // Handle form submission with AJAX for register
+        $('#registerForm').submit(function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
 
-    document.getElementById('loginPassword').addEventListener('input', function() {
-        const passwordInput = this;
-        if (passwordInput.value.length < 6) {
-            passwordInput.style.borderColor = 'red';
-        } else {
-            passwordInput.style.borderColor = 'green';
-        }
-    });
-
-    // Animasi modal
-    const modal = document.getElementById('registerModal');
-    modal.addEventListener('show.bs.modal', () => {
-        modal.style.opacity = 0;
-        setTimeout(() => {
-            modal.style.opacity = 1;
-            modal.style.transition = 'opacity 0.5s ease-in-out';
-        }, 10);
-    });
-
-    // Notifikasi pop-up
-    function showNotification(message, isSuccess) {
-        const notification = document.createElement('div');
-        notification.innerText = message;
-        notification.style.position = 'fixed';
-        notification.style.bottom = '20px';
-        notification.style.right = '20px';
-        notification.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545';
-        notification.style.color = '#fff';
-        notification.style.padding = '10px 20px';
-        notification.style.borderRadius = '5px';
-        notification.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-        notification.style.transition = 'opacity 0.5s ease-in-out';
-        document.body.appendChild(notification);
-        setTimeout(() => {
-            notification.style.opacity = 0;
-            setTimeout(() => notification.remove(), 500);
-        }, 3000);
-    }
-
-    // Contoh penggunaan notifikasi
-    document.querySelector('form[action="process.php"]').addEventListener('submit', function(e) {
-        e.preventDefault();
-        showNotification('Login berhasil!', true);
+            $.ajax({
+                type: "POST",
+                url: "config/fungsi.php", // File PHP yang menangani register
+                data: formData,
+                success: function(response) {
+                    if (response.status === "register_success") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registration Success',
+                            text: response.message
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Registration Failed',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Terjadi kesalahan. Silakan coba lagi.'
+                    });
+                }
+            });
+        });
     });
 </script>
 
-<?php
-require 'templates/footer.php';
-?>
+<?php require 'templates/footer.php'; ?>

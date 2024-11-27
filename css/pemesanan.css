@@ -1,18 +1,173 @@
-.sticky-top {
-    z-index: 1020;
-    background-color: #ffffff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+/* Font dan Warna Dasar */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    padding-top: 0;
+    background-image: url('../img/pesawat/airplane-4885803_960_720.jpg'); /* Ganti dengan path gambar Anda */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
+/* Efek Bayangan pada Teks */
+h1, h2, p {
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Warna Gradasi untuk Teks */
+.lead {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Transisi Halus pada Teks dan Elemen */
+h2, .card, .btn-primary {
+    transition: all 0.3s ease;
+}
+
+/* Efek Hover pada Teks dan Elemen */
+h2:hover, .card:hover, .btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Design */
+.card {
+    border: none;
+    margin: 0 auto;
+    max-width: 900px;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Efek Hover pada Card */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Desain Card Body */
+.card-body {
+    padding: 20px;
+    background-color: #f8f9fa; /* Warna abu-abu terang */
+}
+
+/* Desain Card Title dengan Gambar */
+.card-title img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Desain Tombol */
+.btn-primary {
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    border: none;
+    font-weight: bold;
+}
+
+/* Efek Hover pada Tombol */
+.btn-primary:hover {
+    background: linear-gradient(90deg, #0056b3, #003d80);
+    transform: scale(1.05);
+}
+
+/* Desain Parallax */
+.parallax {
+    background-image: url('img/pesawat/airbus-8607152_960_720.jpg');
+    min-height: 400px;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/* Desain Tautan */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Responsif untuk Layar Kecil */
+@media (max-width: 576px) {
+    .container {
+        padding: 15px;
+    }
+}
+
+/* Desain Card */
 .card {
     border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
 .card-body {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    padding: 20px;
 }
 
-.card-body:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.card-title img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.card-text {
+    margin-bottom: 8px;
+}
+
+/* Desain Tombol */
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Sticky Navbar */
+.sticky-top {
+    z-index: 1000;
+}
+
+/* Desain Input Group Icon */
+.input-group-text i {
+    font-size: 1.2rem;
+}
+
+/* Desain Modal */
+.modal-dialog {
+    max-width: 500px;
+}
+
+.modal-footer button {
+    padding: 10px 20px;
 }

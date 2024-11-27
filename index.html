@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts for custom fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Body and Font Style */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f6f9;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      height: 100vh;
+      background-color: #007bff;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      padding-top: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      transition: width 0.3s ease-in-out;
+    }
+
+    .sidebar h3 {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .sidebar .nav-link {
+      color: #fff;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    .sidebar .nav-link:hover {
+      background-color: #0056b3;
+      border-radius: 4px;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 250px;
+      padding: 30px;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    /* Card Styling */
+    .card-custom {
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-custom:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-custom .card-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #007bff;
+    }
+
+    .card-custom .card-text {
+      font-size: 14px;
+      color: #6c757d;
+    }
+
+    .card-custom h3 {
+      font-size: 30px;
+      font-weight: 700;
+      color: #007bff;
+    }
+
+    /* Table Styling */
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: #e9ecef;
+    }
+
+    .table th,
+    .table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 220px;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        box-shadow: none;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .sidebar h3 {
+        font-size: 20px;
+      }
+      .sidebar .nav-link {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar d-flex flex-column p-3">
+    <h3><i class="fas fa-tachometer-alt"></i> Dashboard</h3>
+    <ul class="nav flex-column mt-4">
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-home"></i> Beranda</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-user"></i> Profil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-box"></i> Pesanan</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-cogs"></i> Pengaturan</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <h2><i class="fas fa-greeting-card"></i> Selamat datang di Dashboard!</h2>
+      <div class="row mt-4">
+        <!-- Card 1 -->
+        <div class="col-md-4 mb-4">
+          <div class="card card-custom">
+            <div class="card-body">
+              <h5 class="card-title">Total Pengguna</h5>
+              <p class="card-text">Jumlah pengguna aktif saat ini.</p>
+              <h3>150</h3>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4 mb-4">
+          <div class="card card-custom">
+            <div class="card-body">
+              <h5 class="card-title">Total Penjualan</h5>
+              <p class="card-text">Penjualan bulan ini.</p>
+              <h3>$3,500</h3>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4 mb-4">
+          <div class="card card-custom">
+            <div class="card-body">
+              <h5 class="card-title">Pesanan Pending</h5>
+              <p class="card-text">Pesanan yang belum diproses.</p>
+              <h3>25</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="row mt-4">
+        <div class="col-12">
+          <h4>Daftar Pesanan</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama Pelanggan</th>
+                <th>Produk</th>
+                <th>Status</th>
+                <th>Jumlah</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>Produk A</td>
+                <td>Pending</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>Produk B</td>
+                <td>Proses</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Michael Lee</td>
+                <td>Produk C</td>
+                <td>Siap Dikirim</td>
+                <td>3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Optional: You can add interactivity here with JavaScript
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('Dashboard Loaded');
+    });
+  </script>
+</body>
+
+</html>

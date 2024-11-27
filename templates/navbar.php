@@ -1,10 +1,13 @@
 
+<?php 
+require 'header.php';
+?>
     <style>
         /* Navbar Customization */
         .navbar-custom {
             background-color: #ffffff; /* White background */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the navbar */
-            padding: 0.5rem 1rem
+            padding: 0.5rem 1rem;
         }
 
         .navbar-custom .navbar-brand {
@@ -12,6 +15,15 @@
             font-size: 1.25rem;
             color: #0066cc; /* Blue color for the brand */
             transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-custom .navbar-brand img {
+            width: 40px; /* Set image size */
+            height: 40px;
+            margin-right: 10px;
+            object-fit: cover;
         }
 
         .navbar-custom .navbar-brand:hover {
@@ -40,12 +52,6 @@
         .navbar-nav .nav-item {
             margin-left: 1rem;
         }
-
-        /* Center the content below the navbar */
-      
-
-        /* Responsive Navbar */
-        
     </style>
 </head>
 
@@ -53,10 +59,13 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">TiketPesawat</a>
+            <a class="navbar-brand" href="#">
+                <img src="img/logo/logo.png" alt="Logo Tiket Pesawat" style="width: 130px;">
+                TiketPesawat
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" clsa ></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
@@ -73,17 +82,15 @@
                         <a class="nav-link" href="#">Bantuan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tambahTiket.php">Tambah Tiket </a>
+                        <a class="nav-link" href="tambahTiket.php">Tambah Tiket</a>
                     </li>
-                    <li class="nav-item" textnama e>
-                        <a class="nav-link" href="tambahdata.php">Tambah Tiket </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tambahdata.php">Tambah Data</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-
 </body>
 
 </html>

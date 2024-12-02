@@ -1,0 +1,76 @@
+/* Styling untuk Card */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow untuk efek 3D */
+}
+
+/* Styling Header Card */
+.card-header {
+    background-color: #0066cc;
+    color: white;
+    padding: 20px;
+    border-radius: 10px 10px 0 0; /* Sudut atas lebih bulat */
+}
+
+.card-header .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card-header .card-subtitle {
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+/* Styling Tabel */
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+/* Styling header tabel */
+.table thead th {
+    background-color: #0066cc;
+    color: white;
+    text-align: left;
+    padding: 12px;
+}
+
+/* Styling body tabel */
+.table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Styling baris ganjil dan genap */
+.table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Efek hover pada baris tabel */
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Styling gambar di tabel */
+.table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Menampilkan tulisan 'No image' */
+.no-image {
+    color: #888;
+    font-style: italic;
+}
+
+/* Untuk menyesuaikan kolom ID yang disembunyikan */
+.d-none {
+    display: none;
+}

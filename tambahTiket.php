@@ -1,18 +1,24 @@
 <?php
-require 'config/fungsi.php'; // Pastikan file koneksi database sudah benar
+require 'config/fungsi.php'; // Pastikan koneksi database sudah benar
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Ambil data dari form
+    // Ambil data dari form dengan validasi
     $maskapai = mysqli_real_escape_string($db, $_POST['maskapai']);
     $kota_asal = mysqli_real_escape_string($db, $_POST['kota_asal']);
     $kota_tujuan = mysqli_real_escape_string($db, $_POST['kota_tujuan']);
     $tanggal_berangkat = mysqli_real_escape_string($db, $_POST['tanggal_berangkat']);
     $harga = mysqli_real_escape_string($db, $_POST['harga']);
 
+    // Validasi harga (hanya angka)
+    if (!is_numeric($harga)) {
+        echo "Harga harus berupa angka.";
+        exit;
+    }
+
     // Proses upload gambar
     $gambar = $_FILES['gambar']['name'];
     $tmp_gambar = $_FILES['gambar']['tmp_name'];
-    $folder_tujuan = "uploads/"; // Pastikan folder ini ada di server Anda
+    $folder_tujuan = "/uploads"; // Pastikan folder ini ada di server Anda
     $path_gambar = $folder_tujuan . basename($gambar);
 
     // Validasi file upload
@@ -27,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (mysqli_query($db, $sql)) {
                 // Berhasil menyimpan data
-                header("Location:"); // Redirect ke halaman tertentu
+                header("Location: pemesanan.php"); // Redirect ke halaman sukses
                 exit;
             } else {
                 // Gagal menyimpan data
@@ -41,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
 
 <?php require 'config/fungsi.php' ?>
 
@@ -311,6 +318,7 @@ require 'templates/header.php';
                         name="harga"
                         placeholder="Masukkan harga tiket (contoh: 1500000)"
                         required>
+                    <small id="formattedHarga" class="text-muted"></small>
                 </div>
                 <div class="mb-3">
                     <label for="gambar" class="form-label fw-bold">Upload Gambar Tiket</label>
@@ -373,36 +381,78 @@ require 'templates/header.php';
     }
 
     /* Customize the appearance of the dropdown */
-.form-control {
-    background-color: #f9fafb; /* Light background color */
-    transition: all 0.3s ease;
-}
+    .form-control {
+        background-color: #f9fafb;
+        /* Light background color */
+        transition: all 0.3s ease;
+    }
 
-.form-control:focus {
-    outline: none;
-    border-color: #3b82f6; /* Blue border on focus */
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); /* Blue shadow */
-}
+    .form-control:focus {
+        outline: none;
+        border-color: #3b82f6;
+        /* Blue border on focus */
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        /* Blue shadow */
+    }
 
-/* Add some padding and spacing */
-.mb-4 {
-    margin-bottom: 1.5rem;
-}
+    /* Add some padding and spacing */
+    .mb-4 {
+        margin-bottom: 1.5rem;
+    }
 
-h1 {
-    font-size: 1.875rem; /* Adjust title font size */
-}
+    h1 {
+        font-size: 1.875rem;
+        /* Adjust title font size */
+    }
 
-button {
-    font-weight: bold;
-}
+    button {
+        font-weight: bold;
+    }
 
-/* Button Hover */
-button:hover {
-    background-color: #2563eb; /* Darker blue on hover */
-}
-
+    /* Button Hover */
+    button:hover {
+        background-color: #2563eb;
+        /* Darker blue on hover */
+    }
 </style>
+<script>
+    function formatRupiah(angka, prefix = "Rp") {
+        // Hapus karakter non-angka
+        const numberString = angka.replace(/[^,\d]/g, "").toString();
+        const split = numberString.split(",");
+        let sisa = split[0].length % 3;
+        let rupiah = split[0].substr(0, sisa);
+        const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // Tambahkan titik pemisah ribuan
+        if (ribuan) {
+            const separator = sisa ? "." : "";
+            rupiah += separator + ribuan.join(".");
+        }
+
+        // Tambahkan koma untuk desimal
+        rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
+
+        // Tambahkan prefix
+        return prefix + rupiah;
+    }
+
+    // Ambil elemen input dan elemen untuk tampilan format Rupiah
+    const inputanHarga = document.getElementById("harga");
+    const formattedHarga = document.getElementById("formattedHarga");
+
+    // Event listener untuk memformat angka di bawah input
+    inputanHarga.addEventListener("input", function() {
+        let angka = inputanHarga.value; // Ambil nilai input
+        // Jika input kosong, jangan tampilkan format
+        if (!angka) {
+            formattedHarga.textContent = "";
+            return;
+        }
+        // Format angka menjadi Rupiah dan tampilkan
+        formattedHarga.textContent = formatRupiah(angka);
+    });
+</script>
 
 <?php
 require 'templates/footer.php';

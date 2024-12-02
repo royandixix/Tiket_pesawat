@@ -1,58 +1,73 @@
-
-<?php 
+<?php
 require 'header.php';
 ?>
-    <style>
-        /* Navbar Customization */
-        .navbar-custom {
-            background-color: #ffffff; /* White background */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the navbar */
-            padding: 0.5rem 1rem;
-        }
+<style>
+    /* Navbar Customization */
+    .navbar-custom {
+        background-color: #ffffff;
+        /* White background */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* Subtle shadow for the navbar */
+        padding: 0.5rem 1rem;
 
-        .navbar-custom .navbar-brand {
-            font-weight: bold;
-            font-size: 1.25rem;
-            color: #0066cc; /* Blue color for the brand */
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
+    }
 
-        .navbar-custom .navbar-brand img {
-            width: 40px; /* Set image size */
-            height: 40px;
-            margin-right: 10px;
-            object-fit: cover;
-        }
+    .navbar-custom .navbar-brand {
+        font-weight: bold;
+        font-size: 1.25rem;
+        color: #0066cc;
+        /* Blue color for the brand */
+        transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
 
-        .navbar-custom .navbar-brand:hover {
-            color: #3399ff; /* Lighter blue on hover */
-        }
+    .navbar-custom .navbar-brand img {
+        width: 40px;
+        /* Set image size */
+        height: 40px;
+        margin-right: 10px;
+        object-fit: cover;
+    }
 
-        .navbar-custom .nav-link {
-            color: #333; /* Dark color for text */
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+    .navbar-custom .navbar-brand:hover {
+       
+        /* Lighter blue on hover */
+    }
 
-        .navbar-custom .nav-link:hover {
-            color: #0066cc; /* Blue on hover */
-            text-decoration: underline; /* Underline on hover for better UX */
-        }
+    .navbar-custom .nav-link {
+        color: #333;
+        /* Dark color for text */
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
 
-        .navbar-custom .navbar-toggler {
-            border-color: #0066cc;
-        }
+    .navbar-custom .nav-link:hover {
+        color: #0066cc;
+        /* Blue on hover */
+        /* Hapus bagian text-decoration: underline; */
+    }
 
-        .navbar-custom .navbar-toggler-icon {
-            background-color: #0066cc;
-        }
 
-        .navbar-nav .nav-item {
-            margin-left: 1rem;
-        }
-    </style>
+    .navbar-custom .navbar-toggler {
+        border-color: #0066cc;
+    }
+
+    .navbar-custom .navbar-toggler-icon {
+        
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 1rem;
+
+    }
+
+    /* Menghilangkan list-style dan padding tambahan */
+    .navbar-nav {
+        list-style: none;
+        padding-left: 0;
+    }
+</style>
 </head>
 
 <body>
@@ -70,27 +85,25 @@ require 'header.php';
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.php">Beranda</a>
+                        <a class="nav-link active" href="index.php">
+                            <i class="fas fa-home me-2"></i>Beranda
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pemesanan.php">Pemesanan</a>
+                        <a class="nav-link" href="pemesanan.php">
+                            <i class="fas fa-ticket-alt me-2"></i>Pemesanan
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cek Status</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Bantuan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tambahTiket.php">Tambah Tiket</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tambahdata.php">Tambah Data</a>
+                        <a class="nav-link" href="logout.php">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </body>
+
 
 </html>

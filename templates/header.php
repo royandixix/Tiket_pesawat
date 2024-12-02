@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar Tiket Pesawat</title>
+    <title>web pesawat</title>
 
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
@@ -22,6 +22,11 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <!-- SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css" rel="stylesheet">
+
+
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/main.css" />

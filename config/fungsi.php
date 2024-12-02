@@ -15,6 +15,3 @@ if (!$db) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-
-
-// Tutup koneksi setelah selesai
